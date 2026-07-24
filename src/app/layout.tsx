@@ -20,8 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${myCustomFont.className}`}>
-      <Navigation />
       <body className={` antialiased`}>
+        <Navigation />
         {children}
         <Analytics />
       </body>

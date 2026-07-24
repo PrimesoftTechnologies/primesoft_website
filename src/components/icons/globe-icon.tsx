@@ -10,7 +10,7 @@ const GlobeIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
       color="currentColor"
       fill="none"
       stroke="currentColor"
-      stroke-width="2.5"
+      strokeWidth="2.5"
       {...props}
     >
       <circle cx="12" cy="12" r="10" />
