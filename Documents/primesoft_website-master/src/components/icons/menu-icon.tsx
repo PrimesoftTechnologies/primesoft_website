@@ -1,0 +1,24 @@
+import { FC, SVGProps } from "react";
+
+const MenuIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="1rem"
+      height="1rem"
+      color="currentColor"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M4 5L20 5" />
+      <path d="M4 12L20 12" />
+      <path d="M4 19L20 19" />
+    </svg>
+  );
+};
+export default MenuIcon;
