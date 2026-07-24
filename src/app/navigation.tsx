@@ -49,10 +49,11 @@ export const Navigation = () => {
           <div className="flex items-center justify-between gap-4 lg:hidden">
             <div className="py-2">
               <Image
-                src="/images/primesoft-logo-transparent.png"
+                src="/images/primesoft-logo-cropped.png"
                 alt="Primesoft Logo"
-                width={100}
-                height={40}
+                width={172}
+                height={81}
+                className="h-9 w-auto object-contain"
               />
             </div>
 
@@ -69,10 +70,11 @@ export const Navigation = () => {
             {/* Logo */}
             <div>
               <Image
-                src="/images/primesoft-logo-transparent.png"
+                src="/images/primesoft-logo-cropped.png"
                 alt="Primesoft Logo"
-                width={100}
-                height={40}
+                width={172}
+                height={81}
+                className="h-9 w-auto object-contain"
               />
             </div>
 
