@@ -63,7 +63,7 @@ const additionalCategories = [
         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
       </svg>
     ),
-    iconBg: "bg-orange-100 text-orange-600",
+    iconBg: "bg-blue-100 text-blue-600",
     apps: [
       { name: "Subscriptions", icon: "/assets/purc.svg" },
       { name: "Rental", icon: "/assets/manu.svg" },
@@ -111,7 +111,7 @@ const additionalCategories = [
         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
-    iconBg: "bg-blue-100 text-blue-600",
+    iconBg: "bg-sky-100 text-sky-600",
     apps: [
       { name: "Recruitment", icon: "/assets/hr.svg" },
       { name: "Time Off", icon: "/assets/sale.svg" },
@@ -145,7 +145,7 @@ const additionalCategories = [
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
       </svg>
     ),
-    iconBg: "bg-amber-100 text-amber-600",
+    iconBg: "bg-blue-100 text-blue-600",
     apps: [
       { name: "Helpdesk", icon: "/assets/invo.svg" },
       { name: "Field Service", icon: "/assets/inventory.svg" },
@@ -194,17 +194,17 @@ export default function ApplicationsContent() {
     <div className="min-h-screen bg-white font-sans flex flex-col justify-between">
       <div>
         {/* Hero Header Section */}
-        <section className="relative overflow-hidden bg-[#101928] px-4 py-16 sm:py-20 lg:py-24">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
+        <section className="relative overflow-hidden bg-[#101928] px-4 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
 
           <div className="relative z-10 mx-auto max-w-3xl text-center">
-            <Notify className="mx-auto mb-5 w-fit border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-xs text-amber-300 rounded-full flex items-center gap-1.5 backdrop-blur-sm">
-              <LocationIcon className="size-3 text-amber-400" />
+            <Notify className="mx-auto mb-5 w-fit border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs text-blue-300 rounded-full flex items-center gap-1.5 backdrop-blur-sm">
+              <LocationIcon className="size-3 text-blue-400" />
               <span>One Platform, Endless Possibilities</span>
             </Notify>
 
             <h1 className="text-3xl font-extrabold text-white sm:text-4xl md:text-5xl tracking-tight">
-              Odoo <span className="text-orange-500">Applications</span>
+              Odoo <span className="text-blue-500">Applications</span>
             </h1>
 
             <p className="mt-3 text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
@@ -212,11 +212,11 @@ export default function ApplicationsContent() {
             </p>
 
             <div className="mt-5 flex items-center justify-center gap-2 text-xs text-slate-400">
-              <Link href="/" className="hover:text-orange-400 transition-colors">
+              <Link href="/" className="hover:text-blue-400 transition-colors">
                 Home
               </Link>
               <span>|</span>
-              <span className="text-orange-400 font-medium">Applications</span>
+              <span className="text-blue-400 font-medium">Applications</span>
             </div>
           </div>
         </section>
@@ -224,8 +224,8 @@ export default function ApplicationsContent() {
         {/* Core Applications Grid Section */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-white">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-1.5 bg-orange-100/80 text-orange-600 text-[11px] font-medium px-3 py-1 rounded-full mb-3">
-              <LocationIcon className="size-3 text-orange-600" />
+            <div className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-[11px] font-medium px-3 py-1 rounded-full mb-3">
+              <LocationIcon className="size-3 text-blue-600" />
               <span>Core Applications</span>
             </div>
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
@@ -241,7 +241,7 @@ export default function ApplicationsContent() {
               {odooApps.map((app, index) => (
                 <div
                   key={index}
-                  className="group flex flex-col items-center justify-center p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-orange-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer text-center h-32"
+                  className="group flex flex-col items-center justify-center p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-blue-500 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer text-center h-32"
                 >
                   <div className="w-12 h-12 mb-2.5 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
                     <img
@@ -250,7 +250,7 @@ export default function ApplicationsContent() {
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <span className="text-[12px] font-semibold text-slate-700 group-hover:text-orange-600 transition-colors">
+                  <span className="text-[12px] font-semibold text-slate-700 group-hover:text-blue-600 transition-colors">
                     {app.name}
                   </span>
                 </div>
@@ -294,7 +294,7 @@ export default function ApplicationsContent() {
                   {category.apps.map((subApp, subIndex) => (
                     <div
                       key={subIndex}
-                      className="bg-white rounded-lg p-1.5 border border-slate-100 flex flex-col items-center justify-center text-center hover:shadow-xs hover:border-slate-300 transition-all cursor-pointer min-h-[62px]"
+                      className="bg-white rounded-lg p-1.5 border border-slate-100 flex flex-col items-center justify-center text-center hover:shadow-xs hover:border-blue-400 hover:text-blue-600 transition-all cursor-pointer min-h-[62px]"
                     >
                       <div className="w-6 h-6 mb-1 flex items-center justify-center">
                         <img
@@ -303,7 +303,7 @@ export default function ApplicationsContent() {
                           className="w-full h-full object-contain"
                         />
                       </div>
-                      <span className="text-[9px] font-medium text-slate-600 leading-tight line-clamp-1">
+                      <span className="text-[9px] font-medium text-slate-600 leading-tight line-clamp-1 group-hover:text-blue-600">
                         {subApp.name}
                       </span>
                     </div>
@@ -318,9 +318,9 @@ export default function ApplicationsContent() {
         <section className="bg-[#101928] py-14 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             {/* PrimeSoft Services Pill Badge */}
-            <div className="inline-flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[11px] font-medium px-3 py-1 rounded-full mb-4">
+            <div className="inline-flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[11px] font-medium px-3 py-1 rounded-full mb-4">
               <svg
-                className="w-3 h-3 text-amber-400"
+                className="w-3 h-3 text-blue-400"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -344,10 +344,10 @@ export default function ApplicationsContent() {
               {primeSoftServices.map((service, index) => (
                 <div
                   key={index}
-                  className="bg-[#162133] border border-slate-700/60 rounded-md p-4 transition-all duration-200 hover:border-orange-500/40"
+                  className="bg-[#162133] border border-slate-700/60 rounded-md p-4 transition-all duration-200 hover:border-blue-500/50"
                 >
-                  {/* Orange Check Circle SVG */}
-                  <div className="w-7 h-7 rounded-md bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-orange-400 mb-3">
+                  {/* Check Circle SVG */}
+                  <div className="w-7 h-7 rounded-md bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-3">
                     <svg
                       className="w-4 h-4"
                       viewBox="0 0 24 24"
@@ -376,8 +376,7 @@ export default function ApplicationsContent() {
         </section>
       </div>
 
-      {/* FOOTER SECTION */}
-      <SiteFooter />
+      
     </div>
   );
 }
