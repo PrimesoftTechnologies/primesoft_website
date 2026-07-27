@@ -35,7 +35,6 @@ export default function Home() {
       <WorkflowSection />
       <StepsSection />
       <PricingIndustriesSection />
-      <SiteFooter />
       <WhatsAppPopup />
       <AnimatePresence>
         {showScrollTop ? (

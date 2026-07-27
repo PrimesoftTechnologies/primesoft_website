@@ -10,8 +10,8 @@ const CalculatorIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
       color="currentColor"
       fill="none"
       stroke="currentColor"
-      stroke-width="2.5"
-      stroke-linejoin="round"
+      strokeWidth="2.5"
+      strokeLinejoin="round"
       {...props}
     >
       <path d="M3 10H21" />

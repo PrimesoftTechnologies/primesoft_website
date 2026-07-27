@@ -10,7 +10,7 @@ const MultipleUserIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
       color="currentColor"
       fill="none"
       stroke="currentColor"
-      stroke-width="2.5"
+      strokeWidth="2.5"
       {...props}
     >
       <path d="M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z" />
