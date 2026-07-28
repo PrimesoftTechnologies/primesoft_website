@@ -56,7 +56,6 @@ const Icons = {
   ),
 };
 
-// Custom Hover Styles per Item Based on Theme Color
 const getItemStyle = (icon: string) => {
   switch (icon) {
     case "automation":
@@ -102,6 +101,8 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
+  
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
 
@@ -125,14 +126,18 @@ export const Navigation = () => {
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const isNearTop = currentScrollY < 24;
+
       if (isNearTop) setIsVisible(true);
       else if (currentScrollY < lastScrollY) setIsVisible(true);
       else if (!isOpen) setIsVisible(false);
+
       lastScrollY = currentScrollY;
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isOpen]);
@@ -140,49 +145,44 @@ export const Navigation = () => {
   return (
     <>
       <nav
-        className={`fixed inset-x-0 top-4 z-50 px-4 transition-transform duration-300 sm:px-6 lg:px-10 ${
-          isVisible ? "translate-y-0" : "-translate-y-[150%]"
+        className={`fixed inset-x-0 -top-3 z-50 px-4 transition-transform duration-300 sm:px-6 lg:px-10 ${
+          isVisible ? "translate-y-0" : "-translate-y-[120%]"
         }`}
       >
-        <div className="mx-auto max-w-7xl">
-          {/* MOBILE HEADER */}
+        <div className="mx-auto">
           <div className="flex items-center justify-between gap-4 lg:hidden">
-            <Link href="/" className="py-2 cursor-pointer">
+            <div className="py-2">
               <Image
                 src="/images/primesoft-logo-transparent.png"
                 alt="Primesoft Logo"
                 width={100}
                 height={40}
               />
-            </Link>
+            </div>
+
             <button
               type="button"
               onClick={() => setIsOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border-0 bg-[#101928]/90 text-white backdrop-blur-md transition hover:bg-slate-800 cursor-pointer shadow-lg"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-700/60 bg-slate-800/80 text-white backdrop-blur-md transition hover:bg-slate-700/80"
             >
               <MenuIcon />
             </button>
           </div>
 
-          {/* DESKTOP HEADER WITH BLUE PILL NAVIGATION */}
           <div className="hidden items-center justify-between gap-4 lg:flex">
-            {/* Logo Left */}
-            <Link href="/" className="shrink-0 cursor-pointer">
+            {/* Logo */}
+            <div>
               <Image
                 src="/images/primesoft-logo-transparent.png"
                 alt="Primesoft Logo"
-                width={110}
-                height={42}
-                priority
+                width={100}
+                height={40}
               />
-            </Link>
+            </div>
 
-            {/* FLOATING PILL CONTAINER */}
-            <div className="flex items-center gap-1 rounded-full border border-slate-700/60 bg-[#101928]/80 p-1.5 backdrop-blur-md shadow-2xl">
+            {/* Navigation */}
+            <div className="my-4 flex h-fit w-fit max-w-full flex-wrap justify-center gap-1 rounded-full border border-slate-700/50 bg-slate-800/80 px-2 py-1.5 backdrop-blur-md">
               {navigationItems.map((nav) => {
-                const isActive =
-                  pathname === nav.path ||
-                  (nav.path !== "/" && pathname.startsWith(nav.path));
                 const hasDropdown = Boolean(nav.dropdown);
 
                 return (
@@ -194,18 +194,16 @@ export const Navigation = () => {
                   >
                     {hasDropdown ? (
                       <button
-                        className={`inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300 cursor-pointer ${
-                          isActive || openDropdown === nav.label
-                            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
-                            : "text-slate-300 hover:text-blue-400 hover:bg-blue-600/20"
+                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm text-white transition cursor-pointer ${
+                          pathname.startsWith(nav.path) && nav.path !== "/"
+                            ? "bg-primary"
+                            : "hover:bg-slate-700/50"
                         }`}
                       >
                         <span>{nav.label}</span>
                         <svg
                           className={`w-3 h-3 transition-transform duration-200 ${
-                            openDropdown === nav.label
-                              ? "rotate-180 text-white"
-                              : "text-slate-400"
+                            openDropdown === nav.label ? "rotate-180" : ""
                           }`}
                           viewBox="0 0 24 24"
                           fill="none"
@@ -218,20 +216,20 @@ export const Navigation = () => {
                     ) : (
                       <Link
                         href={nav.path}
-                        className={`inline-flex items-center px-5 py-2 text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${
-                          isActive
-                            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
-                            : "text-slate-300 hover:text-blue-400 hover:bg-blue-600/20"
+                        className={`rounded-full px-3 py-2 text-sm text-white transition block ${
+                          pathname === nav.path
+                            ? "bg-primary"
+                            : "hover:bg-slate-700/50"
                         }`}
                       >
                         {nav.label}
                       </Link>
                     )}
 
-                    {/* ULTRA-CLEAN FLOATING DROPDOWN CARD */}
+                    {/* DESKTOP DROPDOWN MENU - BILA BORDERS KWENYE CARDS ZA NDANI */}
                     {hasDropdown && openDropdown === nav.label && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50">
-                        <div className="w-80 rounded-2xl border-0 bg-[#131d31] p-2.5 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-1 duration-150">
+                      <div className="absolute top-full left-0 pt-2 z-50">
+                        <div className="w-64 rounded-2xl border border-slate-700/60 bg-[#0f172b] p-2 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150">
                           <div className="space-y-1">
                             {nav.dropdown?.map((item) => {
                               const style = getItemStyle(item.icon);
@@ -240,22 +238,14 @@ export const Navigation = () => {
                                   key={item.href}
                                   href={item.href}
                                   onClick={() => setOpenDropdown(null)}
-                                  className={`group flex items-center gap-3.5 rounded-xl p-2.5 border-0 transition-all duration-200 ${style.hoverBg} cursor-pointer`}
+                                  className={`group flex items-center gap-3 rounded-xl p-2 transition-all duration-200 ${style.hoverBg} cursor-pointer`}
                                 >
-                                  <div className={`flex size-8 shrink-0 items-center justify-center rounded-lg bg-slate-800/80 transition-colors ${style.activeIconBg}`}>
+                                  <div className={`flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-800/80 transition-colors ${style.activeIconBg}`}>
                                     {Icons[item.icon as keyof typeof Icons]}
                                   </div>
                                   <div className="flex flex-col text-left">
-                                    <span className={`text-xs font-semibold text-slate-200 ${style.hoverText} transition-colors`}>
+                                    <span className={`text-xs font-semibold text-slate-200 ${style.hoverText} transition-colors line-clamp-1`}>
                                       {item.label}
-                                    </span>
-                                    <span className="text-[10px] text-slate-400 leading-tight mt-0.5">
-                                      {item.label === "Call Center & Customer Support" && "AI-powered communication systems"}
-                                      {item.label === "Business Automation" && "Automate manual workflows & tasks"}
-                                      {item.label === "AI & Machine Learning" && "Data-driven predictive systems"}
-                                      {item.label === "ERP & Business Systems" && "Centralized enterprise operations"}
-                                      {item.label === "Custom Software Development" && "Tailored software applications"}
-                                      {item.label === "Digital Transformation" && "Modernize business architecture"}
                                     </span>
                                   </div>
                                 </Link>
@@ -270,15 +260,10 @@ export const Navigation = () => {
               })}
             </div>
 
-            {/* CTA Button Right */}
-            <div className="shrink-0">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-blue-600 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-blue-500/25 transition-all duration-200 hover:bg-blue-500 hover:-translate-y-0.5 cursor-pointer"
-              >
-                Get Free Consultation
-              </Link>
-            </div>
+            {/* CTA */}
+            <button className="my-6 inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-500/25 transition-all duration-200">
+              Get Free Consultation
+            </button>
           </div>
         </div>
       </nav>
@@ -286,76 +271,102 @@ export const Navigation = () => {
       {/* OVERLAY */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm lg:hidden cursor-pointer"
+          className="fixed inset-0 z-55 bg-black/40 backdrop-blur-sm lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* MOBILE DRAWER */}
+      {/* DRAWER YA SIMU */}
       <div
-        className={`fixed inset-y-0 right-0 z-[60] w-[80%] max-w-sm flex flex-col bg-[#101928] text-white shadow-2xl transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-y-0 right-0 z-[60] w-[70%] flex flex-col bg-[#0f172b] text-white shadow-2xl transition-transform duration-300 lg:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-slate-800/80 px-6 py-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-            Menu Navigation
+        {/* HEADER WITH CLOSE BUTTON */}
+        <div className="flex items-center justify-between border-b border-slate-700/70 px-6 py-4">
+          <span className="text-sm font-medium uppercase tracking-[0.2em] text-slate-300">
+            Menu
           </span>
+
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white cursor-pointer"
+            className="p-2 rounded-lg hover:bg-slate-700/50"
           >
             <CloseIcon />
           </button>
         </div>
 
-        <div className="grid gap-2 px-4 py-6 overflow-y-auto">
-          {navigationItems.map((nav) => (
-            <div key={nav.path}>
-              {nav.dropdown ? (
-                <div className="space-y-1">
-                  <div className="block rounded-xl px-4 py-2.5 text-xs font-bold text-slate-400 uppercase tracking-wider">
-                    {nav.label}
-                  </div>
-                  <div className="ml-3 space-y-1 pl-3">
-                    {nav.dropdown.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-blue-600/15 hover:text-blue-400 transition cursor-pointer"
+        <div className="grid gap-2 px-6 py-6 overflow-y-auto">
+          {navigationItems.map((nav) => {
+            const hasDropdown = Boolean(nav.dropdown);
+
+            return (
+              <div key={nav.path}>
+                {hasDropdown ? (
+                  <div className="space-y-1">
+                    <button
+                      onClick={() =>
+                        setMobileDropdownOpen(
+                          mobileDropdownOpen === nav.label ? null : nav.label
+                        )
+                      }
+                      className="w-full flex items-center justify-between rounded-xl px-4 py-3 text-base font-light text-slate-100 hover:bg-slate-700/50 transition cursor-pointer"
+                    >
+                      <span>{nav.label}</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-200 text-slate-300 ${
+                          mobileDropdownOpen === nav.label ? "rotate-180" : ""
+                        }`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
                       >
-                        {Icons[item.icon as keyof typeof Icons]}
-                        <span className="font-medium">{item.label}</span>
-                      </Link>
-                    ))}
+                        <path d="M6 9l6 6 6-6" />
+                      </svg>
+                    </button>
+
+                    {mobileDropdownOpen === nav.label && (
+                      <div className="ml-3 space-y-1 pl-3 pt-1 border-l border-slate-700 animate-in fade-in duration-200">
+                        {nav.dropdown?.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => {
+                              setIsOpen(false);
+                              setMobileDropdownOpen(null);
+                            }}
+                            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-slate-300 hover:bg-slate-700/50 hover:text-white transition cursor-pointer"
+                          >
+                            {Icons[item.icon as keyof typeof Icons]}
+                            <span>{item.label}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ) : (
-                <Link
-                  href={nav.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`block rounded-full px-4 py-2.5 text-xs font-semibold transition cursor-pointer ${
-                    pathname === nav.path
-                      ? "bg-blue-600 text-white"
-                      : "text-slate-300 hover:bg-blue-600/20 hover:text-blue-400"
-                  }`}
-                >
-                  {nav.label}
-                </Link>
-              )}
-            </div>
-          ))}
+                ) : (
+                  <Link
+                    href={nav.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`block rounded-xl px-4 py-3 text-base font-light transition ${
+                      pathname === nav.path
+                        ? "bg-primary text-white"
+                        : "text-slate-100 hover:bg-slate-700/50"
+                    }`}
+                  >
+                    {nav.label}
+                  </Link>
+                )}
+              </div>
+            );
+          })}
         </div>
 
-        <div className="mt-auto border-t border-slate-800/80 p-4">
-          <Link
-            href="/contact"
-            onClick={() => setIsOpen(false)}
-            className="block w-full text-center rounded-full bg-blue-600 py-3 text-xs font-bold text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-500 cursor-pointer"
-          >
+        <div className="mt-auto border-t border-slate-700/70 px-6 py-6">
+          <button className="w-full rounded-xl bg-primary px-4 py-3 font-medium text-white transition hover:brightness-110">
             Free Consultation
-          </Link>
+          </button>
         </div>
       </div>
     </>
