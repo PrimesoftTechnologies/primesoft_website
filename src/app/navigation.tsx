@@ -181,7 +181,7 @@ export const Navigation = () => {
             <button
               type="button"
               onClick={() => setIsOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-700/60 bg-slate-800/80 text-white backdrop-blur-md transition hover:bg-slate-700/80"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-slate-700/60 bg-slate-800/80 text-white backdrop-blur-md transition hover:bg-slate-700/80"
             >
               <MenuIcon />
             </button>
@@ -305,14 +305,14 @@ export const Navigation = () => {
         />
       )}
 
-      {/* DRAWER YA SIMU - IMEONGEZWA UPANA (w-[85%] max-w-sm) */}
+      {/* DRAWER YA SIMU */}
       <div
-        className={`fixed inset-y-0 right-0 z-[60] w-[85%] max-w-sm flex flex-col bg-[#090d16] text-white shadow-2xl transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-y-0 right-0 z-[60] w-[85%] max-w-sm flex flex-col bg-[#090d16]/80 backdrop-blur-xl border-l border-slate-700/50 text-white shadow-2xl transition-transform duration-300 lg:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* HEADER WITH CLOSE BUTTON */}
-        <div className="flex items-center justify-between border-b border-slate-700/70 px-6 py-4">
+        <div className="flex items-center justify-between border-b border-slate-700/50 px-6 py-4">
           <span className="text-sm font-medium uppercase tracking-[0.2em] text-slate-300">
             Menu
           </span>
@@ -328,6 +328,7 @@ export const Navigation = () => {
         <div className="grid gap-2 px-6 py-6 overflow-y-auto">
           {navigationItems.map((nav) => {
             const hasDropdown = Boolean(nav.dropdown);
+            const isDropdownActive = nav.dropdown?.some((item) => pathname === item.href);
 
             return (
               <div key={nav.path}>
@@ -339,7 +340,11 @@ export const Navigation = () => {
                           mobileDropdownOpen === nav.label ? null : nav.label
                         )
                       }
-                      className="w-full flex items-center justify-between rounded-xl px-4 py-3 text-base font-light text-slate-100 hover:bg-slate-700/50 transition cursor-pointer"
+                      className={`w-full flex items-center justify-between rounded-lg px-4 py-3 text-base font-light transition cursor-pointer ${
+                        isDropdownActive || mobileDropdownOpen === nav.label
+                          ? "bg-primary/30 text-blue-400 border border-blue-500/30"
+                          : "text-slate-100 hover:bg-slate-700/50"
+                      }`}
                     >
                       <span>{nav.label}</span>
                       <svg
@@ -369,13 +374,13 @@ export const Navigation = () => {
                                 setIsOpen(false);
                                 setMobileDropdownOpen(null);
                               }}
-                              className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition cursor-pointer ${
+                              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition cursor-pointer ${
                                 isSelected 
                                   ? `${style.activeBg} ${style.activeText}` 
                                   : "text-slate-300 hover:bg-slate-700/50 hover:text-white"
                               }`}
                             >
-                              <div className={`flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-800 transition-colors ${
+                              <div className={`flex size-7 shrink-0 items-center justify-center rounded-md bg-slate-800/80 transition-colors ${
                                 isSelected ? `${style.activeIconBg}` : ""
                               }`}>
                                 {Icons[item.icon as keyof typeof Icons]}
@@ -391,9 +396,9 @@ export const Navigation = () => {
                   <Link
                     href={nav.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block rounded-xl px-4 py-3 text-base font-light transition ${
+                    className={`block rounded-lg px-4 py-3 text-base font-light transition ${
                       pathname === nav.path
-                        ? "bg-primary text-white"
+                        ? "bg-primary/30 text-blue-400 border border-blue-500/30"
                         : "text-slate-100 hover:bg-slate-700/50"
                     }`}
                   >
@@ -405,8 +410,8 @@ export const Navigation = () => {
           })}
         </div>
 
-        <div className="mt-auto border-t border-slate-700/70 px-6 py-6">
-          <button className="w-full rounded-xl bg-primary px-4 py-3 font-medium text-white transition hover:brightness-110">
+        <div className="mt-auto border-t border-slate-700/50 px-6 py-6">
+          <button className="w-full rounded-lg bg-primary px-4 py-3 font-medium text-white transition hover:brightness-110">
             Free Consultation
           </button>
         </div>
