@@ -60,39 +60,57 @@ const getItemStyle = (icon: string) => {
   switch (icon) {
     case "automation":
       return {
-        hoverBg: "hover:bg-orange-500/15",
+        activeBg: "bg-orange-500/25",
+        activeText: "text-orange-400",
+        activeIconBg: "bg-orange-600 text-white",
+        hoverBg: "hover:bg-orange-500/25",
         hoverText: "group-hover:text-orange-400",
-        activeIconBg: "group-hover:bg-orange-600 group-hover:text-white",
+        hoverIconBg: "group-hover:bg-orange-600 group-hover:text-white",
       };
     case "ai":
       return {
-        hoverBg: "hover:bg-emerald-500/15",
+        activeBg: "bg-emerald-500/25",
+        activeText: "text-emerald-400",
+        activeIconBg: "bg-emerald-600 text-white",
+        hoverBg: "hover:bg-emerald-500/25",
         hoverText: "group-hover:text-emerald-400",
-        activeIconBg: "group-hover:bg-emerald-600 group-hover:text-white",
+        hoverIconBg: "group-hover:bg-emerald-600 group-hover:text-white",
       };
     case "erp":
       return {
-        hoverBg: "hover:bg-purple-500/15",
+        activeBg: "bg-purple-500/25",
+        activeText: "text-purple-400",
+        activeIconBg: "bg-purple-600 text-white",
+        hoverBg: "hover:bg-purple-500/25",
         hoverText: "group-hover:text-purple-400",
-        activeIconBg: "group-hover:bg-purple-600 group-hover:text-white",
+        hoverIconBg: "group-hover:bg-purple-600 group-hover:text-white",
       };
     case "code":
       return {
-        hoverBg: "hover:bg-cyan-500/15",
+        activeBg: "bg-cyan-500/25",
+        activeText: "text-cyan-400",
+        activeIconBg: "bg-cyan-600 text-white",
+        hoverBg: "hover:bg-cyan-500/25",
         hoverText: "group-hover:text-cyan-400",
-        activeIconBg: "group-hover:bg-cyan-600 group-hover:text-white",
+        hoverIconBg: "group-hover:bg-cyan-600 group-hover:text-white",
       };
     case "transform":
       return {
-        hoverBg: "hover:bg-amber-500/15",
+        activeBg: "bg-amber-500/25",
+        activeText: "text-amber-400",
+        activeIconBg: "bg-amber-600 text-white",
+        hoverBg: "hover:bg-amber-500/25",
         hoverText: "group-hover:text-amber-400",
-        activeIconBg: "group-hover:bg-amber-600 group-hover:text-white",
+        hoverIconBg: "group-hover:bg-amber-600 group-hover:text-white",
       };
     default:
       return {
-        hoverBg: "hover:bg-blue-600/20",
+        activeBg: "bg-blue-600/30",
+        activeText: "text-blue-400",
+        activeIconBg: "bg-blue-600 text-white",
+        hoverBg: "hover:bg-blue-600/30",
         hoverText: "group-hover:text-blue-400",
-        activeIconBg: "group-hover:bg-blue-600 group-hover:text-white",
+        hoverIconBg: "group-hover:bg-blue-600 group-hover:text-white",
       };
   }
 };
@@ -184,6 +202,7 @@ export const Navigation = () => {
             <div className="my-4 flex h-fit w-fit max-w-full flex-wrap justify-center gap-1 rounded-full border border-slate-700/50 bg-slate-800/80 px-2 py-1.5 backdrop-blur-md">
               {navigationItems.map((nav) => {
                 const hasDropdown = Boolean(nav.dropdown);
+                const isDropdownActive = nav.dropdown?.some((item) => pathname === item.href);
 
                 return (
                   <div
@@ -195,7 +214,7 @@ export const Navigation = () => {
                     {hasDropdown ? (
                       <button
                         className={`inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm text-white transition cursor-pointer ${
-                          pathname.startsWith(nav.path) && nav.path !== "/"
+                          isDropdownActive || (pathname.startsWith(nav.path) && nav.path !== "/")
                             ? "bg-primary"
                             : "hover:bg-slate-700/50"
                         }`}
@@ -226,25 +245,35 @@ export const Navigation = () => {
                       </Link>
                     )}
 
-                    {/* DESKTOP DROPDOWN MENU - BILA BORDERS KWENYE CARDS ZA NDANI */}
+                    {/* DESKTOP DROPDOWN MENU */}
                     {hasDropdown && openDropdown === nav.label && (
                       <div className="absolute top-full left-0 pt-2 z-50">
-                        <div className="w-64 rounded-2xl border border-slate-700/60 bg-[#0f172b] p-2 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150">
+                        <div className="w-64 rounded-2xl border border-slate-700/80 bg-[#090d16]/95 p-2 shadow-2xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-1 duration-150">
                           <div className="space-y-1">
                             {nav.dropdown?.map((item) => {
                               const style = getItemStyle(item.icon);
+                              const isSelected = pathname === item.href;
+
                               return (
                                 <Link
                                   key={item.href}
                                   href={item.href}
                                   onClick={() => setOpenDropdown(null)}
-                                  className={`group flex items-center gap-3 rounded-xl p-2 transition-all duration-200 ${style.hoverBg} cursor-pointer`}
+                                  className={`group flex items-center gap-3 rounded-xl p-2 transition-all duration-200 cursor-pointer ${
+                                    isSelected 
+                                      ? `${style.activeBg}` 
+                                      : `${style.hoverBg}`
+                                  }`}
                                 >
-                                  <div className={`flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-800/80 transition-colors ${style.activeIconBg}`}>
+                                  <div className={`flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-800/90 transition-colors ${
+                                    isSelected ? `${style.activeIconBg}` : `${style.hoverIconBg}`
+                                  }`}>
                                     {Icons[item.icon as keyof typeof Icons]}
                                   </div>
                                   <div className="flex flex-col text-left">
-                                    <span className={`text-xs font-semibold text-slate-200 ${style.hoverText} transition-colors line-clamp-1`}>
+                                    <span className={`text-xs font-semibold transition-colors line-clamp-1 ${
+                                      isSelected ? `${style.activeText}` : `text-slate-100 ${style.hoverText}`
+                                    }`}>
                                       {item.label}
                                     </span>
                                   </div>
@@ -276,9 +305,9 @@ export const Navigation = () => {
         />
       )}
 
-      {/* DRAWER YA SIMU */}
+      {/* DRAWER YA SIMU - IMEONGEZWA UPANA (w-[85%] max-w-sm) */}
       <div
-        className={`fixed inset-y-0 right-0 z-[60] w-[70%] flex flex-col bg-[#0f172b] text-white shadow-2xl transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-y-0 right-0 z-[60] w-[85%] max-w-sm flex flex-col bg-[#090d16] text-white shadow-2xl transition-transform duration-300 lg:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -327,21 +356,34 @@ export const Navigation = () => {
                     </button>
 
                     {mobileDropdownOpen === nav.label && (
-                      <div className="ml-3 space-y-1 pl-3 pt-1 border-l border-slate-700 animate-in fade-in duration-200">
-                        {nav.dropdown?.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => {
-                              setIsOpen(false);
-                              setMobileDropdownOpen(null);
-                            }}
-                            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-slate-300 hover:bg-slate-700/50 hover:text-white transition cursor-pointer"
-                          >
-                            {Icons[item.icon as keyof typeof Icons]}
-                            <span>{item.label}</span>
-                          </Link>
-                        ))}
+                      <div className="ml-3 space-y-1 pt-1 animate-in fade-in duration-200">
+                        {nav.dropdown?.map((item) => {
+                          const isSelected = pathname === item.href;
+                          const style = getItemStyle(item.icon);
+
+                          return (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              onClick={() => {
+                                setIsOpen(false);
+                                setMobileDropdownOpen(null);
+                              }}
+                              className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition cursor-pointer ${
+                                isSelected 
+                                  ? `${style.activeBg} ${style.activeText}` 
+                                  : "text-slate-300 hover:bg-slate-700/50 hover:text-white"
+                              }`}
+                            >
+                              <div className={`flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-800 transition-colors ${
+                                isSelected ? `${style.activeIconBg}` : ""
+                              }`}>
+                                {Icons[item.icon as keyof typeof Icons]}
+                              </div>
+                              <span className="whitespace-nowrap">{item.label}</span>
+                            </Link>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
