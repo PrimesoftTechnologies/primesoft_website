@@ -23,8 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${myCustomFont.className}`}>
-      <body className={`antialiased`}>
-        <Navigation />  
+      <body className={` antialiased`}>
+        <Navigation />
         {children}
         <SiteFooter />  
         <Analytics />
