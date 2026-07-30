@@ -4,7 +4,6 @@
 import Link from "next/link";
 import { LocationIcon } from "@/components/icons";
 import Notify from "@/components/notify";
-import SiteFooter from "@/components/site-footer";
 
 // Core Applications Assets
 const SAMPLE_IMAGE = "/assets/crm.svg";
