@@ -1,5 +1,4 @@
 // src/app/services/ai-solutions/page.tsx
-import { Navigation } from "@/app/navigation";
 import { AISolutionsHero } from "@/components/ai-solutions/ai-solutions-hero";
 import { AISolutionsFeatures } from "@/components/ai-solutions/ai-solutions-features";
 import { AISolutionsComparison } from "@/components/ai-solutions/ai-solutions-comparison";
@@ -13,8 +12,6 @@ export const metadata = {
 export default function AISolutionsPage() {
   return (
     <main className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
-      <Navigation />
-      
       {/* 1. Hero */}
       <AISolutionsHero />
 

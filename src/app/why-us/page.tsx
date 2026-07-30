@@ -11,7 +11,6 @@ import TestimonialsSection from "@/components/why-us/testimonials-section";
 import TechStackSection from "@/components/why-us/tech-stack-section";
 import CommitmentSection from "@/components/why-us/commitment-section";
 import FinalCtaSection from "@/components/why-us/final-cta-section";
-import SiteFooter from "@/components/site-footer";
 import WhatsAppPopup from "@/components/whatsapp-popup";
 
 export default function WhyUsPage() {
@@ -44,7 +43,6 @@ export default function WhyUsPage() {
       <TechStackSection />
       <CommitmentSection />
       <FinalCtaSection />
-      <SiteFooter />
       <WhatsAppPopup />
       <AnimatePresence>
         {showScrollTop ? (
