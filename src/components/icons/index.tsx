@@ -15,4 +15,4 @@ export { default as ClipboardIcon } from "@/components/icons/clipboard-icon";
 export { default as LocationIcon } from "@/components/icons/location-icon";
 export { default as SupportIcon } from "@/components/icons/support-icon";
 export { default as CloseIcon } from "@/components/icons/close-icon";
-export {default as MenuIcon} from "@/components/icons/menu-icon";
+export { default as MenuIcon } from "@/components/icons/menu-icon";

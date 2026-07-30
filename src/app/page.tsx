@@ -5,7 +5,6 @@ import ProcessSection from "../components/process/process-section";
 import WorkflowSection from "@/components/workflow/workflow-section";
 import StepsSection from "@/components/steps/steps-section";
 import PricingIndustriesSection from "@/components/pricing-industries-section";
-import SiteFooter from "@/components/site-footer";
 import WhatsAppPopup from "@/components/whatsapp-popup";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -35,7 +34,6 @@ export default function Home() {
       <WorkflowSection />
       <StepsSection />
       <PricingIndustriesSection />
-      <SiteFooter />
       <WhatsAppPopup />
       <AnimatePresence>
         {showScrollTop ? (
