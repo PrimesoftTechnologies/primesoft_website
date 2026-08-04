@@ -163,7 +163,7 @@ export const Navigation = () => {
   return (
     <>
       <nav
-        className={`fixed inset-x-0 -top-3 z-50 px-4 transition-transform duration-300 sm:px-6 lg:px-10 ${
+        className={`fixed inset-x-0 top-0 z-50 px-4 pt-3 transition-transform duration-300 sm:px-6 sm:pt-4 lg:px-10 ${
           isVisible ? "translate-y-0" : "-translate-y-[120%]"
         }`}
       >
