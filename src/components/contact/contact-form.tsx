@@ -13,15 +13,47 @@ const labelClassName =
 const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
-    setTimeout(() => {
-      setLoading(false);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      name: String(data.get("name") ?? ""),
+      company: String(data.get("company") ?? ""),
+      email: String(data.get("email") ?? ""),
+      phone: String(data.get("phone") ?? ""),
+      service: String(data.get("service") ?? ""),
+      message: String(data.get("message") ?? ""),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        throw new Error(body?.error ?? "Something went wrong. Please try again.");
+      }
+
+      form.reset();
       setSubmitted(true);
-    }, 1000);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,6 +120,7 @@ const ContactForm = () => {
                 <label className={labelClassName}>Full Name</label>
                 <input
                   type="text"
+                  name="name"
                   required
                   placeholder="Your name"
                   className={inputClassName}
@@ -97,6 +130,7 @@ const ContactForm = () => {
                 <label className={labelClassName}>Company</label>
                 <input
                   type="text"
+                  name="company"
                   required
                   placeholder="Your organization"
                   className={inputClassName}
@@ -109,6 +143,7 @@ const ContactForm = () => {
                 <label className={labelClassName}>Email</label>
                 <input
                   type="email"
+                  name="email"
                   required
                   placeholder="business@company.com"
                   className={inputClassName}
@@ -118,6 +153,7 @@ const ContactForm = () => {
                 <label className={labelClassName}>Phone</label>
                 <input
                   type="tel"
+                  name="phone"
                   required
                   placeholder="+255 7XX XXX XXX"
                   className={inputClassName}
@@ -128,6 +164,7 @@ const ContactForm = () => {
             <div>
               <label className={labelClassName}>Service Needed</label>
               <select
+                name="service"
                 required
                 defaultValue=""
                 className={`${inputClassName} cursor-pointer`}
@@ -154,11 +191,18 @@ const ContactForm = () => {
               <label className={labelClassName}>Message</label>
               <textarea
                 rows={4}
+                name="message"
                 required
                 placeholder="Tell us what you're working on..."
                 className={`${inputClassName} resize-none`}
               />
             </div>
+
+            {error ? (
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                {error}
+              </div>
+            ) : null}
 
             <button
               type="submit"
