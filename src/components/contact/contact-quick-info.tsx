@@ -27,7 +27,7 @@ const quickInfo = [
   },
   {
     label: "Visit Us",
-    value: "Mwenge, Dar es Salaam",
+    value: "30 Mseleleko St, Dar es Salaam",
     href: "https://maps.app.goo.gl/BoKTemrDjNVispeG6",
     icon: <PinIcon />,
     external: true,

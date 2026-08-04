@@ -58,8 +58,7 @@ const ContactDetailsPanel = () => {
             <PinIcon />
           </span>
           <p className="text-sm leading-6 text-slate-600">
-            Survey Plaza, 1st Floor, Sam Nujoma Rd 35091 Mwenge, Dar es
-            Salaam, Tanzania
+            30 Mseleleko St, Dar es Salaam
           </p>
         </div>
         <div className="grid gap-2.5 border-t border-slate-100 px-5 pb-5 pt-4 sm:grid-cols-2">
