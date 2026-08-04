@@ -9,6 +9,7 @@ const quickInfo = [
     value: "+255 746 805 383",
     href: "tel:+255746805383",
     icon: <PhoneIcon />,
+    external: false,
   },
   {
     label: "WhatsApp",
@@ -22,6 +23,7 @@ const quickInfo = [
     value: "info@primesoft.co.tz",
     href: "mailto:info@primesoft.co.tz",
     icon: <MailIcon />,
+    external: false,
   },
   {
     label: "Visit Us",
